@@ -4,6 +4,8 @@ from routes import route
 import json
 from connection import get_db
 
+
+
 app = FastAPI()
 
 
@@ -13,7 +15,7 @@ app.include_router(route)
 def health():
     return {"status": "I'm alive!!"}
 
-@app.get("/load_data")
+@app.on_event("startup")
 def load_data():
     db = get_db()
     collection = db.employees

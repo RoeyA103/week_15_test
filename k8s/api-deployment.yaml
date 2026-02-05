@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: api
-        image: roeyaverbuch/api-mongo:v0.2
+        image: roeyaverbuch/api-mongo:v0.3
         ports:
         - containerPort: 8000
         env:

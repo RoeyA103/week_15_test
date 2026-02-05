@@ -22,3 +22,4 @@ spec:
         env:
           - name: MONGO_URI
             value: "mongodb://mongo-0.mongo-svc:27017/"
+            

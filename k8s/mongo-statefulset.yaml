@@ -26,7 +26,6 @@ spec:
 
 
 
-
   volumeClaimTemplates:
   - metadata:
       name: mongo-data

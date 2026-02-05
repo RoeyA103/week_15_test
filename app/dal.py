@@ -4,7 +4,7 @@ from fastapi import HTTPException ,status
 from fastapi.responses import JSONResponse
 from pymongo.collection import ReturnDocument
 from pymongo import DESCENDING
-from rich import print as rprint
+
 
 def serialize_doc(doc):
     if doc and "_id" in doc:

@@ -35,9 +35,9 @@ def get_employees_by_age_and_role():
     try:
         collection = get_collection() 
         query = {"$or":[{'job_role.title':"Engineer"},{'job_role.title':'Specialist'}] 
-                ,'age':{'$gt' : 29 ,'$lte' : 45}}
+                ,'age':{'$gte' : 30 ,'$lte' : 45}}
         docs = list(collection.find(query))  
-        return docs
+        return serialize_docs(docs)
     except Exception as e:
         raise e
 
@@ -46,7 +46,7 @@ def get_top_seniority_employees_excluding_hr():
         collection = get_collection() 
         query = {'job_role.department':{'$ne':'HR'}}
         docs = list(collection.find(query).sort("years_at_company",DESCENDING).limit(7))
-        return docs
+        return serialize_docs(docs)
     except Exception as e:
         raise e
 
@@ -54,9 +54,9 @@ def get_employees_by_age_or_seniority():
     try:
         collection = get_collection() 
         fields = {'employee_id':1,'name':1,'age':1,"years_at_company":1,'_id':0}
-        query = {"$or":[{'age':{'$gt' : 50}},{'years_at_company':{'$lte' : 2}}]}
+        query = {"$or":[{'age':{'$gt' : 50}},{'years_at_company':{'$lt' : 3}}]}
         docs = list(collection.find(query,fields))
-        return docs
+        return serialize_docs(docs)
     except Exception as e:
         raise e
 
@@ -67,7 +67,7 @@ def get_managers_excluding_departments():
                         {'job_role.department':{'$ne':"Sales"}},
                         {'job_role.department':{'$ne':"Marketing"}}]}
         docs = list(collection.find(query))
-        return docs
+        return serialize_docs(docs)
     except Exception as e:
         raise e
 
@@ -77,8 +77,8 @@ def get_employees_by_lastname_and_age():
         fields = {'name':1,'age':1,'job_role.department':1,'_id':0}
         query = {'$and': [{"$or":[{'name':{"$regex": "Nelson$"}},
                         {'name':{"$regex": "Wright$"}}]},
-                        {'age':{'$lte':34}}]}
-        docs = list(collection.find(query))
-        return docs
+                        {'age':{'$lt':35}}]}
+        docs = list(collection.find(query,fields))
+        return serialize_docs(docs)
     except Exception as e:
         raise e
